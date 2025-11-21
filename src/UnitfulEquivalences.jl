@@ -55,6 +55,18 @@ Unitful.uconvert(u::Units, x, e::Equivalence) =
     uconvert(u, edconvert(dimension(u), _scalarquantity(x), e))
 
 """
+    uconvert(u::Units, e::Equivalence)
+
+Create a function for converting quantities to the units `u` (of different dimensions)
+by using the specified equivalence `e`.
+
+# Examples
+
+TODO
+"""
+Unitful.uconvert(u::Units, e::Equivalence) = x -> uconvert(u, x, e)
+
+"""
     ustrip([T::Type,] u::Units, x::Quantity, e::Equivalence)
 
 Convert `x` to the units `u` (of different dimensions) by using the specified equivalence
