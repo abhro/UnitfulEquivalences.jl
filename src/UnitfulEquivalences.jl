@@ -58,11 +58,26 @@ Unitful.uconvert(u::Units, x, e::Equivalence) =
     uconvert(u::Units, e::Equivalence)
 
 Create a function for converting quantities to the units `u` (of different dimensions)
-by using the specified equivalence `e`.
+by using the specified equivalence `e`. This is useful for calling a function with `|>`,
+where a unit can be converted after calculation.
 
 # Examples
 
-TODO
+```jldoctest
+julia> using Unitful: me, q, ε0, h
+
+julia> 1me |> uconvert(u"keV", MassEnergy())
+510.9989499961642 keV
+
+julia> uconvert(u"eV", Spectral())(589u"nm") # photon energy (in eV) of sodium D₂ line
+2.104994880020378 eV
+
+julia> me*q^4 / (8*ε0^2*h^3) |> u"Hz"                       # Rydberg frequency
+3.2898419566425655e15 Hz
+
+julia> me*q^4 / (8*ε0^2*h^3) |> uconvert(u"eV", Spectral()) # Rydberg energy
+13.605693108071442 eV
+```
 """
 Unitful.uconvert(u::Units, e::Equivalence) = x -> uconvert(u, x, e)
 
