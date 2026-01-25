@@ -61,6 +61,8 @@ Create a function for converting quantities to the units `u` (of different dimen
 by using the specified equivalence `e`. This is useful for calling a function with `|>`,
 where a unit can be converted after calculation.
 
+Since units themselves are callable, `u(e)` is a convenient shortcut for `uconvert(u, e)`.
+
 # Examples
 
 ```jldoctest
@@ -75,7 +77,7 @@ julia> uconvert(u"eV", Spectral())(589u"nm") # photon energy (in eV) of sodium D
 julia> me*q^4 / (8*ε0^2*h^3) |> u"Hz"                       # Rydberg frequency
 3.2898419566425655e15 Hz
 
-julia> me*q^4 / (8*ε0^2*h^3) |> uconvert(u"eV", Spectral()) # Rydberg energy
+julia> me*q^4 / (8*ε0^2*h^3) |> u"eV"(Spectral())           # Rydberg energy
 13.605693108071442 eV
 ```
 """
